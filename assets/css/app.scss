@@ -1,0 +1,80 @@
+div.container,
+div.container-fluid {
+  margin-top: 20px;
+}
+
+div.adtitle {
+  padding: 2em;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+
+  h1,
+  p {
+    color: white;
+    text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+  }
+
+  .btn {
+    margin-top: 2em;
+    font-size: 1em;
+    font-weight: 700;
+    line-height: 1.5em;
+    letter-spacing: 2px;
+    text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+  }
+}
+
+div.carousel-caption {
+  text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+}
+
+a.link-title {
+  text-decoration: none;
+}
+
+.avatar {
+  max-width: 128px;
+  max-height: 128px;
+  border-radius: 50%;
+
+  &.avatar-medium {
+    max-width: 64px;
+    max-height: 64px;
+  }
+
+  &.avatar-mini {
+    max-width: 34px;
+    max-height: 34px;
+  }
+}
+
+.datepicker table tr td.disabled,
+.datepicker table tr td.disabled:hover {
+  color: firebrick !important;
+  font-weight: 700;
+}
+
+span.rating i {
+  color: goldenrod;
+}
+
+.rate i {
+  cursor: pointer;
+  font-size: 20px;
+}
+
+#notAvailableDays {
+  display: none;
+}
+
+.alert {
+  a {
+    text-decoration: none;
+  }
+
+  .btn {
+    font-weight: 700;
+    color: white;
+  }
+}

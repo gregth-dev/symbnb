@@ -1,0 +1,113 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Réservation n°{{ booking.id }}
+{% endblock %}
+
+{% block body %}
+	{% set b = booking %}
+	{% set ad = b.ad %}
+	{% set a = b.ad.author %}
+	<div class="container">
+		<h1>Votre réservation n°{{ booking.id }}</h1>
+		{% if app.request.query.get('bookSuccess') %}
+			<div class="alert alert-success">
+				<h4 class="alert-heading">Bravo!</h4>
+				<p>Votre réservation auprès de
+					<strong>
+						<a href="{{ path('user_show', {slug:a.slug}) }}">{{ a.fullName }}</a>
+					</strong>
+					pour l'annonce
+					<strong>
+						<a href="{{ path('ads_show', {slug:ad.slug}) }}}">{{ ad.title }}</a>
+					</strong>
+					a bien été prise en compte
+				</p>
+			</div>
+		{% endif %}
+		<div class="row">
+			<div class="col-md-6">
+				<div class="alert alert-light">
+					<h2>Détails</h2>
+					<d1 class="row">
+						<dt class="col-md-4">Numéro</dt>
+						<dd class="col-md-8">{{ b.id }}</dd>
+						<dt class="col-md-4">Date d'arrivée</dt>
+						<dd class="col-md-8">{{ b.startDate | date('d/m/y') }}</dd>
+						<dt class="col-md-4">Date de départ</dt>
+						<dd class="col-md-8">{{ b.endDate | date('d/m/y') }}</dd>
+						<dt class="col-md-4">Nombre de nuit</dt>
+						<dd class="col-md-8">{{ b.duration }}</dd>
+						<dt class="col-md-4">Montant total</dt>
+						<dd class="col-md-8">{{ b.amount  | number_format(2, ',', ' ')}}
+							&euro;</dd>
+						<dt class="col-md-4">Commentaire</dt>
+						<dd class="col-md-8">{{ b.comment | default('Aucun commentaire')}}</dd>
+					</d1>
+					<hr>
+					<h2 class="alert-heading">Votre hôte</h2>
+					<div class="row mb-3">
+						<div class="col-md-3">
+							<img src="{{ a.picture }}" alt="Avatar de {{ a.fullName }}" class="avatar avatar-medium">
+						</div>
+						<div class="col-md-9">
+							<h3>
+								<a href="{{ path('user_show', {slug:a.slug}) }}">{{ a.fullName }}</a>
+							</h3>
+							<span class="badge badge-primary">{{ a.ads | length }}
+								{% if a.ads | length > 1 %}
+									annonces
+								{% else %}
+									annonce
+								{% endif %}
+							</span>
+						</div>
+					</div>
+					<p>{{a.description | nl2br}}</p>
+					<a href="{{ path('user_show', {slug:a.slug}) }}" class="btn btn-primary">Profil de
+						{{ a.firstName }}</a>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="alert alert-light">
+					<h2 class="alert-heading">Votre hébergement</h2>
+					<h4>
+						<a href="{{ path('ads_show', {slug:ad.slug}) }}">{{ ad.title }}</a>
+					</h4>
+					<img src="{{ ad.coverImage }}" alt="Image de {{ ad.title }}" class="img-fluid">
+					<p>{{ ad.content}}</p>
+					<a href="{{ path('ads_show', {slug:ad.slug}) }}" class="btn btn-primary">Plus d'infos</a>
+				</div>
+				<div class="alert alert-light" id="comment">
+					<h2 class="alert-heading">Votre avis compte !</h2>
+					{% if date() > date(booking.endDate) %}
+						{% set comment = booking.ad.commentFromAuthor(app.user) %}
+						{% if comment is not null %}
+							<blockquote>{{ comment.content }}</blockquote>
+							<strong>Note :
+							</strong>
+							{% include 'partials/rating.html.twig' with {rating:comment.rating} %}
+						{% else %}
+							<span>Notez votre séjour :</span><br>
+							<span class="rate mt-4">
+								{% for i in 1..5 %}
+									<i id="star{{i}}" class="far fa-star"></i>
+								{% endfor %}
+							</span>
+							{{ form_start(form) }}
+							{{ form_errors(form) }}
+							{{ form_row(form.content) }}
+							<button type="submit" class="btn btn-success">Confirmer</button>
+							{{ form_end(form) }}
+						{% endif %}
+					{% else %}
+						<p>Vous pouvez noter l'annonce une fois votre voyage terminé</p>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+{% block javascripts %}
+	{{ parent() }}
+	{{ encore_entry_script_tags('comments') }}
+{% endblock %}

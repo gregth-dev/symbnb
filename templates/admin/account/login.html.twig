@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous">
+		<title>Connexion Admin</title>
+	</head>
+	<body>
+		<div class="container pt-5">
+			<div class="row justify-content-md-center">
+				<div class="col-md-4">
+					<div class="card bg-light">
+						<div class="card-header">
+							<h4 class="card-title text-center">
+								<i class="fas fa-lock"></i>
+								Connexion à l'administration
+							</h4>
+						</div>
+						<div class="card-body">
+							{% if error %}
+								<div class="text-center alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+							{% endif %}
+							<form method="post">
+								<div class="form-group">
+									<label for="_username">Login</label>
+									<input type="text" class="form-control" placeholder="Login..." name="_username" value="{{last_username}}">
+								</div>
+								<div class="form-group">
+									<label for="_password">Mot de passe</label>
+									<input type="password" class="form-control" placeholder="Mot de passe..." name="_password">
+								</div>
+								<div class="form-group">
+									<button type="submit" class="btn btn-primary">
+										<i class="fas fa-lock-open"></i>
+										Connexion !
+									</button>
+									<a href="{{ path('homepage') }}" class="btn btn-link">
+										<i class="fas fa-arrow-circle-left"></i>
+										Page d'accueil
+									</a>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

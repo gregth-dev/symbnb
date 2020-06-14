@@ -1,0 +1,65 @@
+{% extends "base.html.twig" %}
+{% block title %}Accueil
+{% endblock %}
+{% block body %}
+	<div class="container mt-3">
+		<div class="jumbotron">
+			<h1 class="display-3">Bienvenue sur SymBNB !</h1>
+			<p class="lead">Nous mettons en relation les voyageurs et les propriétaires qui veulent profiter d'opportunités et gagner de l'argent en proposant leur bien à la location !</p>
+			<hr class="my-4">
+			<p>Vous êtes voyageur ? Et vous voulez voir où vous pourrez loger pour vore prochain déplacement ?</p>
+			<p class="lead">
+				<a class="btn btn-primary btn-lg" href="{{path('ads_index')}}" role="button">Voir nos annonces</a>
+			</p>
+		</div>
+		<h2 class="h1 my-5">Nos locations stars</h2>
+		<div class="row">
+			{% for ads in bestAds %}
+				<div class="col-md-4">
+					<div class="card bg-light mb-3">
+						<div class="card-header text-center">
+							{{ads.annonce.rooms}}
+							{% if ads.annonce.rooms > 1 %}chambres,
+								{% else %}chambre,
+							{% endif %}
+							<strong>{{ads.annonce.price}}&euro; / nuit</strong><br>
+
+							<small>{% include "partials/rating.html.twig" with {rating:ads.avgRatings} %}</small>
+						</div>
+						<img src="{{ads.annonce.coverImage}}" alt="Image de {{ads.annonce.title}}" style="height: 200px; width: 100%; display: block">
+						<div class="card-body">
+							<h4 class="card-title">
+								{{ads.annonce.title}}
+							</h4>
+							<p class="card-text">{{ads.annonce.introduction}}</p>
+
+							<a href="{{ path('ads_show', {slug:ads.annonce.slug}) }}" class="btn btn-secondary">En savoir plus !</a>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+		<h2 class="h1 my-5">Nos propriétaires stars !</h2>
+		<div class="row">
+			{% for user in bestUsers %}
+				{% set user = user.user %}
+				<div class="col">
+					<div class="card border-secondary mb-3">
+						<div class="card-body">
+							<h4 class="card-title">{{user.firstName}}
+								{{user.lastName}}
+							</h4>
+
+							<hr>
+							<div class="card-text">
+								<img src="{{user.picture}}" alt="Avatar de {{user.firstName}} {{user.lastName}}" class="float-left mr-3">
+								<p>{{user.introduction}}</p>
+								<a href="{{path('user_show', {slug:user.slug})}}" class="btn btn-success">En savoir plus</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+	Mettre à jour votre annonce
+{% endblock %}
+
+{% form_theme form 'ad/_collection.html.twig' %}
+
+{% block body %}
+	<div class="container">
+		<h1>Mettre à jour votre annonce</h1>
+		{{ form_start(form) }}
+		{{ form_widget(form) }}
+		<button type="submit" class="btn btn-info">Mettre à jour l'annonce</button>
+		{{ form_end(form) }}
+	</div>
+{% endblock %}
+{% block javascripts %}
+	{{ parent() }}
+	{{ encore_entry_script_tags('ad') }}
+{% endblock %}

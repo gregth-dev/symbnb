@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8">
+		<title>SymBnb -
+			{% block title %}{% endblock %}
+		</title>
+		<meta name="viewport" content="width=device-width, user-scalable=no">
+		{% block stylesheets %}
+			{{ encore_entry_link_tags('app') }}
+			<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous">
+		{% endblock %}
+	</head>
+	<body>
+		{% include "admin/partials/header.html.twig" %}
+		{% block body %}{% endblock %}
+		{% include "admin/partials/footer.html.twig" %}
+		{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha256-bqVeqGdJ7h/lYPq6xrPv/YGzMEb6dNxlfiTUHSgRCp8=" crossorigin="anonymous" charset="UTF-8"></script>
+		{% endblock %}
+	</body>
+</html>
